@@ -18,8 +18,12 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class BaseService<T, R extends JpaRepository<T,K>, K> {
-    @Autowired
-    R repository;
+
+    private R repository;
+
+    public BaseService(R repository){
+        this.repository = repository;
+    }
 
     public boolean deleteById(K key){
          repository.deleteById(key);
@@ -83,5 +87,12 @@ public abstract class BaseService<T, R extends JpaRepository<T,K>, K> {
 
     }
 
+    public R getRepository() {
+        return repository;
+    }
+
+    public void setRepository(R repository) {
+        this.repository = repository;
+    }
 }
 

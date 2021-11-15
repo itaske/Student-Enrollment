@@ -28,6 +28,10 @@ public class UserService extends BaseService<User, UserRepository, Long> impleme
     @Autowired
     private StudentService studentService;
 
+    public UserService(UserRepository repository) {
+        super(repository);
+    }
+
     @PostConstruct
     public void init(){
         User adminUser = new User();
@@ -56,7 +60,7 @@ public class UserService extends BaseService<User, UserRepository, Long> impleme
 
 
     public User getUserByEmail(String email){
-        User user = repository.findByEmail(email)
+        User user = getRepository().findByEmail(email)
                 .orElseThrow(()-> new UsernameNotFoundException(format("User with %s, not found", email)));
         return user;
     }
